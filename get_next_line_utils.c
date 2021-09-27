@@ -6,7 +6,7 @@
 /*   By: viferrei <viferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/13 16:41:07 by viferrei          #+#    #+#             */
-/*   Updated: 2021/09/20 11:38:08 by viferrei         ###   ########.fr       */
+/*   Updated: 2021/09/27 15:07:35 by viferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ size_t	ft_strlen(const char *str)
 	return (count);
 }
 
-char	*ft_strljoin(char const *s1, char const *s2)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*strjoin;
 	size_t	sjoin_len;
@@ -70,11 +70,36 @@ char	*ft_strljoin(char const *s1, char const *s2)
 	index = 0;
 	while (*s1 != '\0')
 		strjoin[index++] = *s1++;
-	while (*s2 != '\n' || *s2 != 0)
+	while (*s2 != '\0')
 		strjoin[index++] = *s2++;
-	if (*s2 == '\n')
-		strjoin[index] = '\n';
-	else
-		strjoin[index] = '\0';
+	strjoin[index] = '\0';
 	return (strjoin);
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*substr;
+	int		n;
+	size_t	slen;
+
+	slen = ft_strlen(s);
+	if (s == NULL)
+		return (NULL);
+	if (start > slen)
+		return (ft_strdup(""));
+	if (slen - start >= len)
+		substr = (char *) malloc(len + 1);
+	else
+		substr = (char *) malloc(slen - start + 1);
+	if (!substr)
+		return (NULL);
+	n = 0;
+	while (start < slen && len > 0 && s[start + n] != '\0')
+	{
+		substr[n] = s[start + n];
+		n++;
+		len--;
+	}
+	substr[n] = '\0';
+	return (substr);
 }

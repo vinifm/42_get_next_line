@@ -6,7 +6,7 @@
 /*   By: viferrei <viferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/13 16:41:09 by viferrei          #+#    #+#             */
-/*   Updated: 2021/09/17 17:04:58 by viferrei         ###   ########.fr       */
+/*   Updated: 2021/09/20 11:24:20 by viferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 #endif
 
 char	*get_next_line(int fd);
-char	*find_nl(int fd, char *excess, char *buffer);
+int		find_nl(char **buffer, char **excess, char **line);
+
 
 /* utils */
 char	*ft_strdup(const char *s1);

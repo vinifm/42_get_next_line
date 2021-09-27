@@ -6,7 +6,7 @@
 /*   By: viferrei <viferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/13 16:41:04 by viferrei          #+#    #+#             */
-/*   Updated: 2021/09/16 17:26:34 by viferrei         ###   ########.fr       */
+/*   Updated: 2021/09/20 11:39:21 by viferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,47 @@
 
 char	*get_next_line(int fd)
 {
-	static char	*s_buff = NULL;
+	static char	*excess = NULL;
 	char		*buffer;
-	//char		*line;
+	char		*line;
+	int			n;
 
 	buffer = (char *) malloc(BUFFER_SIZE + 1);
 	if (BUFFER_SIZE <= 0 || !buffer)
 		return (NULL);
-	if (!s_buff)
-		s_buff = ft_strdup("");
+	if (!excess)
+		excess = ft_strdup("");
 
-	return (find_nl(fd, s_buff, buffer));
+	while (find_nl(&buffer, &excess, &line))
+	{
+		n = read(fd, buffer, BUFFER_SIZE);
+		buffer[n] = '\0';
+	}
+	return (line);
 }
 
-char	*find_nl(int fd, char *s_buff, char *buffer)
+int	find_nl(char **buffer, char **excess, char **line)
+{
+	int		index;
+
+	while (*buffer[index] != 0)
+	{
+		if (*buffer[index] == '\n')
+		{
+			line = ft_strljoin(excess, buffer, index);
+			free(excess);
+		}
+		index++;
+	}
+	excess = ft_strljoin(excess, buffer, index);
+	free(buffer);
+	if (line)
+		return(0);
+	return(1);
+}
+
+/*
+char	*....(int fd, char *excess, char *buffer)
 {
 	char	*temp;
 	int		eof;
@@ -38,9 +65,10 @@ char	*find_nl(int fd, char *s_buff, char *buffer)
 	while(buffer[index - 1] != '\n' && eof)
 	{
 		eof = read(fd, &buffer[index++], BUFFER_SIZE);
-		temp = s_buff;
-		s_buff = ft_strjoin(temp, buffer);
+		temp = excess;
+		excess = ft_strjoin(temp, buffer);
 		free(temp);
 	}
-	return (s_buff);
+	return (excess);
 }
+*/

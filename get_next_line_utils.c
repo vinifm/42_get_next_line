@@ -6,7 +6,7 @@
 /*   By: viferrei <viferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/13 16:41:07 by viferrei          #+#    #+#             */
-/*   Updated: 2021/09/16 17:13:09 by viferrei         ###   ########.fr       */
+/*   Updated: 2021/09/20 11:38:08 by viferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ size_t	ft_strlen(const char *str)
 	return (count);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strljoin(char const *s1, char const *s2)
 {
 	char	*strjoin;
 	size_t	sjoin_len;
@@ -70,8 +70,11 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	index = 0;
 	while (*s1 != '\0')
 		strjoin[index++] = *s1++;
-	while(*s2 != '\0')
+	while (*s2 != '\n' || *s2 != 0)
 		strjoin[index++] = *s2++;
-	strjoin[index] = '\0';
+	if (*s2 == '\n')
+		strjoin[index] = '\n';
+	else
+		strjoin[index] = '\0';
 	return (strjoin);
 }

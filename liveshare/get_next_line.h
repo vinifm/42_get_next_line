@@ -6,7 +6,7 @@
 /*   By: viferrei <viferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 19:54:18 by viferrei          #+#    #+#             */
-/*   Updated: 2021/09/30 12:20:10 by viferrei         ###   ########.fr       */
+/*   Updated: 2021/09/30 12:56:32 by viferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 
 char	*get_next_line(int fd);
-//ssize_t	read_file(int fd, char **buffer, char **line);
+int		read_file(int fd, char **buffer, char **line, char **s_buff);
 char	*get_line(char **line, char **s_buff);
 
 size_t	ft_strlen(const char *s);
@@ -30,7 +30,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
+#  define BUFFER_SIZE 3
 # endif
 
 #endif

@@ -6,11 +6,12 @@
 /*   By: viferrei <viferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/13 16:41:04 by viferrei          #+#    #+#             */
-/*   Updated: 2021/09/27 15:53:45 by viferrei         ###   ########.fr       */
+/*   Updated: 2021/09/29 19:49:22 by viferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 void	free_ptr(char *ptr)
 {
@@ -76,3 +77,5 @@ char	*get_line(char **s_buff, char **line)
 	free_ptr(*s_buff);
 	return (new_buff);
 }
+
+// REMOVER PRINTF E STDIO.H

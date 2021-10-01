@@ -6,7 +6,7 @@
 /*   By: viferrei <viferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 17:44:32 by arbernar          #+#    #+#             */
-/*   Updated: 2021/09/30 12:58:32 by viferrei         ###   ########.fr       */
+/*   Updated: 2021/09/30 18:43:06 by viferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	line = get_line(&line, &s_buff);
 
-	printf("s_buff é:%s\n\n", s_buff);
+	//printf("s_buff é:>>%s<<\n\n", s_buff);
 
 	return(line);
 }
@@ -59,6 +59,8 @@ int	read_file(int fd, char **buffer, char **line, char **s_buff)
 		*line = ft_strjoin(*line, *buffer);
 		free_ptr(temp);
 	}
+
+
 	return(bytes_read);
 }
 
@@ -71,16 +73,24 @@ char	*get_line(char **line, char **s_buff)
 
 	line_nl = 0;
 	buff_nl = 0;
-	while((*line)[line_nl] != '\n')
-		line_nl++;
-	while((*s_buff)[buff_nl] != '\n')
-		buff_nl++;
 	line_temp = *line;
 	buff_temp = *s_buff;
-	*line = ft_strjoin(*s_buff, ft_substr(*line, 0, (line_nl + 1)));
-	*s_buff = ft_strdup(line_temp + line_nl + 1);
+	while(**line && (*line)[line_nl] != '\n')
+		line_nl++;
+	if (ft_strchr(*s_buff, '\n'))
+	{
+		while(**s_buff && (*s_buff)[buff_nl] != '\n')
+			buff_nl++;
+		*line = ft_substr(*s_buff, 0, buff_nl + 1);
+		*s_buff = ft_strdup(*s_buff + buff_nl + 1);
+	}
+	else
+	{
+		*line = ft_strjoin(buff_temp, ft_substr(*line, 0, (line_nl + 1)));
+		*s_buff = ft_strdup(line_temp + line_nl + 1);
+	}
 
-	printf("\n\nline_temp é:>>%s<<\n\n", line_temp);
+	//printf("\n\nline_temp é:>>%s<<\n\n", line_temp);
 
 	free_ptr(line_temp);
 	free_ptr(buff_temp);

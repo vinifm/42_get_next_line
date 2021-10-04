@@ -38,3 +38,7 @@ run:
 fsan:
 			$(RM) a.out
 			$(CC) $(CFLAGS) -fsanitize=address *.c && ./a.out
+
+valg:
+			$(RM) a.out
+			$(CC) $(CFLAGS) -g *.c && --leak-check=full ./a.out

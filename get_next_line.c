@@ -6,7 +6,7 @@
 /*   By: viferrei <viferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 17:44:32 by arbernar          #+#    #+#             */
-/*   Updated: 2021/10/04 15:26:17 by viferrei         ###   ########.fr       */
+/*   Updated: 2021/10/04 16:48:15 by viferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	free_ptr(char *ptr)
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*s_buff;
+	static char	*s_buff = NULL;
 	char		*buffer;
 	int			bytes_read;
 
@@ -41,35 +41,58 @@ char	*get_next_line(int fd)
 	line = ft_strdup("");
 	if (!s_buff)
 		s_buff = ft_strdup("");
-	bytes_read = read_file(fd, &buffer, &line, &s_buff);
+	bytes_read = read_file(fd, &buffer, &s_buff);
 	if (bytes_read < 1)
 		return (NULL);
 	line = get_line(&line, &s_buff);
 
-	//printf("s_buff é:>>%s<<\n\n", s_buff);
+	printf("line é:>>%s<<\n\n", line);
 
 	return(line);
 }
 
-int	read_file(int fd, char **buffer, char **line, char **s_buff)
+int	read_file(int fd, char **buffer, char **s_buff)
 {
 	int		bytes_read;
 	char		*temp;
 
 	bytes_read = 1;
-	while (!ft_strchr(*buffer, '\n') && !ft_strchr(*s_buff, '\n')
-			&& bytes_read)
+	while (!ft_strchr(*s_buff, '\n') && bytes_read)
 	{
 		bytes_read = read(fd, *buffer, BUFFER_SIZE);
 		(*buffer)[bytes_read] = '\0';
-		temp = *line;
-		*line = ft_strjoin(*line, *buffer);
+		temp = *s_buff;
+		*s_buff = ft_strjoin(*s_buff, *buffer);
 		free_ptr(temp);
 	}
 	free_ptr(*buffer);
 	return(bytes_read);
 }
 
+char	*get_line(char **line, char **s_buff)
+{
+	char	*buff_temp;
+	int		buff_nl;
+
+	buff_nl = 0;
+	buff_temp = *s_buff;
+	while(**s_buff && (*s_buff)[buff_nl] != '\n')
+		buff_nl++;
+	if (ft_strchr(*s_buff, '\n'))
+	{
+		*line = ft_substr(*s_buff, 0, buff_nl + 1);
+		*s_buff = ft_strdup(*s_buff + buff_nl + 1);
+	}
+	else
+		*line = ft_strdup(*s_buff);
+
+	printf("\n\nbuff_temp é:>>%s<<\n", buff_temp);
+	printf("\n\n*s_buff é:>>%s<<\n\n", *s_buff);
+
+	free_ptr(buff_temp);
+	return (*line);
+};
+/*
 char	*get_line(char **line, char **s_buff)
 {
 	char	*line_temp;
@@ -96,9 +119,10 @@ char	*get_line(char **line, char **s_buff)
 		*s_buff = ft_strdup(line_temp + line_nl + 1);
 	}
 
-	//printf("\n\nline_temp é:>>%s<<\n\n", line_temp);
+	printf("\n\nline_temp é:>>%s<<\n\n", line_temp);
 
 	free_ptr(line_temp);
 	free_ptr(buff_temp);
 	return (*line);
 };
+*/

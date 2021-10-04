@@ -6,7 +6,7 @@
 /*   By: viferrei <viferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/13 16:11:46 by viferrei          #+#    #+#             */
-/*   Updated: 2021/10/04 15:23:18 by viferrei         ###   ########.fr       */
+/*   Updated: 2021/10/04 16:30:26 by viferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(void)
 	fd = open ("text.txt", O_RDONLY);
 	//fd = open ("empty", O_RDONLY);
 	index = 1;
-	n = 11;
+	n = 3;
 	while (n)
 	{
 		printf("%d >>%s<<", index, get_next_line(fd));

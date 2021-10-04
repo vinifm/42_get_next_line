@@ -6,7 +6,7 @@
 /*   By: viferrei <viferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 17:44:32 by arbernar          #+#    #+#             */
-/*   Updated: 2021/10/04 16:48:15 by viferrei         ###   ########.fr       */
+/*   Updated: 2021/10/04 17:40:37 by viferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,12 @@ char	*get_next_line(int fd)
 		free(buffer);
 		return (NULL);
 	}
-	line = ft_strdup("");
 	if (!s_buff)
 		s_buff = ft_strdup("");
 	bytes_read = read_file(fd, &buffer, &s_buff);
 	if (bytes_read < 1)
 		return (NULL);
-	line = get_line(&line, &s_buff);
+	get_line(&line, &s_buff);
 
 	printf("line é:>>%s<<\n\n", line);
 
@@ -76,7 +75,7 @@ char	*get_line(char **line, char **s_buff)
 
 	buff_nl = 0;
 	buff_temp = *s_buff;
-	while(**s_buff && (*s_buff)[buff_nl] != '\n')
+	while((*s_buff)[buff_nl] != '\n' && (*s_buff)[buff_nl] != '\0')
 		buff_nl++;
 	if (ft_strchr(*s_buff, '\n'))
 	{
@@ -92,37 +91,3 @@ char	*get_line(char **line, char **s_buff)
 	free_ptr(buff_temp);
 	return (*line);
 };
-/*
-char	*get_line(char **line, char **s_buff)
-{
-	char	*line_temp;
-	char	*buff_temp;
-	int		line_nl;
-	int		buff_nl;
-
-	line_nl = 0;
-	buff_nl = 0;
-	line_temp = *line;
-	buff_temp = *s_buff;
-	while(**line && (*line)[line_nl] != '\n')
-		line_nl++;
-	if (ft_strchr(*s_buff, '\n'))
-	{
-		while(**s_buff && (*s_buff)[buff_nl] != '\n')
-			buff_nl++;
-		*line = ft_substr(*s_buff, 0, buff_nl + 1);
-		*s_buff = ft_strdup(*s_buff + buff_nl + 1);
-	}
-	else
-	{
-		*line = ft_strjoin(buff_temp, ft_substr(*line, 0, (line_nl + 1)));
-		*s_buff = ft_strdup(line_temp + line_nl + 1);
-	}
-
-	printf("\n\nline_temp é:>>%s<<\n\n", line_temp);
-
-	free_ptr(line_temp);
-	free_ptr(buff_temp);
-	return (*line);
-};
-*/

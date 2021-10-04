@@ -6,7 +6,7 @@
 /*   By: viferrei <viferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 17:44:32 by arbernar          #+#    #+#             */
-/*   Updated: 2021/09/30 18:43:06 by viferrei         ###   ########.fr       */
+/*   Updated: 2021/10/04 15:26:17 by viferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,19 @@ char	*get_next_line(int fd)
 	char		*buffer;
 	int			bytes_read;
 
-	line = ft_strdup("");
-	if (!s_buff)
-		s_buff = ft_strdup("");
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
 	buffer = (char *) malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
 		return (NULL);
+	if (read(fd, buffer, 0) < 0)
+	{
+		free(buffer);
+		return (NULL);
+	}
+	line = ft_strdup("");
+	if (!s_buff)
+		s_buff = ft_strdup("");
 	bytes_read = read_file(fd, &buffer, &line, &s_buff);
 	if (bytes_read < 1)
 		return (NULL);
@@ -50,7 +57,7 @@ int	read_file(int fd, char **buffer, char **line, char **s_buff)
 	char		*temp;
 
 	bytes_read = 1;
-	while (!(ft_strchr(*buffer, '\n')) && !(ft_strchr(*s_buff,  '\n'))
+	while (!ft_strchr(*buffer, '\n') && !ft_strchr(*s_buff, '\n')
 			&& bytes_read)
 	{
 		bytes_read = read(fd, *buffer, BUFFER_SIZE);
@@ -59,8 +66,7 @@ int	read_file(int fd, char **buffer, char **line, char **s_buff)
 		*line = ft_strjoin(*line, *buffer);
 		free_ptr(temp);
 	}
-
-
+	free_ptr(*buffer);
 	return(bytes_read);
 }
 

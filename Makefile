@@ -41,4 +41,5 @@ fsan:
 
 valg:
 			$(RM) a.out
-			$(CC) $(CFLAGS) -g *.c && valgrind --leak-check=full ./a.out
+			$(CC) $(CFLAGS) -g *.c && valgrind --leak-check=full \
+			--track-origins=yes ./a.out

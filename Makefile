@@ -29,12 +29,14 @@ fclean: 	clean
 
 re: 		fclean all
 
-.PHONY: 	all clean fclean re bonus rebonus run fsan
+.PHONY: 	all clean fclean re bonus rebonus m fsan
 
-run:
+m:
 			$(RM) a.out
-			$(CC) $(CFLAGS) *.c && ./a.out
-
+			$(CC) $(CFLAGS) get_next_line.c get_next_line_utils.c main.c && ./a.out
+bonus:
+			$(RM) a.out
+			$(CC) $(CFLAGS) get_next_line_bonus.c get_next_line_utils_bonus.c main.c && ./a.out
 fsan:
 			$(RM) a.out
 			$(CC) $(CFLAGS) -g -fsanitize=address *.c && ./a.out

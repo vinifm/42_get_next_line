@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: viferrei <viferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 17:44:32 by arbernar          #+#    #+#             */
-/*   Updated: 2021/10/05 17:47:22 by viferrei         ###   ########.fr       */
+/*   Updated: 2021/10/05 17:48:52 by viferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 void	free_ptr(char *ptr)
 {
@@ -24,10 +24,10 @@ void	free_ptr(char *ptr)
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*s_buff = NULL;
+	static char	*s_buff[OPEN_MAX];
 	char		*buffer;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > OPEN_MAX)
 		return (NULL);
 	buffer = (char *) malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
@@ -37,9 +37,9 @@ char	*get_next_line(int fd)
 		free(buffer);
 		return (NULL);
 	}
-	if (!s_buff)
-		s_buff = ft_strdup("");
-	if (read_file(fd, &buffer, &s_buff, &line) == 0 && *line == '\0')
+	if (!s_buff[fd])
+		s_buff[fd] = ft_strdup("");
+	if (read_file(fd, &buffer, &s_buff[fd], &line) == 0 && *line == '\0')
 	{
 		free_ptr(line);
 		return (NULL);

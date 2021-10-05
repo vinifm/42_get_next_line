@@ -37,7 +37,7 @@ run:
 
 fsan:
 			$(RM) a.out
-			$(CC) $(CFLAGS) -fsanitize=address *.c && ./a.out
+			$(CC) $(CFLAGS) -g -fsanitize=address *.c && ./a.out
 
 valg:
 			$(RM) a.out

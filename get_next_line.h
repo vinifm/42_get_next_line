@@ -6,18 +6,16 @@
 /*   By: viferrei <viferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 19:54:18 by viferrei          #+#    #+#             */
-/*   Updated: 2021/10/05 12:22:52 by viferrei         ###   ########.fr       */
+/*   Updated: 2021/10/05 16:54:40 by viferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-#include <stdlib.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <unistd.h>
-
+# include <stdlib.h>
+# include <fcntl.h>
+# include <unistd.h>
 
 char	*get_next_line(int fd);
 int		read_file(int fd, char **buffer, char **s_buff, char **line);

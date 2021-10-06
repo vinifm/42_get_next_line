@@ -6,11 +6,34 @@
 /*   By: viferrei <viferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 17:44:32 by arbernar          #+#    #+#             */
-/*   Updated: 2021/10/05 17:47:22 by viferrei         ###   ########.fr       */
+/*   Updated: 2021/10/06 15:27:11 by viferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+/*
+	GET_NEXT_LINE
+	-------------
+	The function returns the next line from the fd with its respective '\n',
+	or the last line of the file. It returns null if there's nothing to read
+	or if an error occurs.
+
+	AUXILIARY FUNCTIONS
+	-------------------
+	READ_FILE
+	---------
+	This function copies BUFFER_SIZE bytes from the string buffer to the
+	static variable s_buff until a newline is found or the end of file is
+	reached.
+
+	GET_LINE
+	--------
+	If a newline is found in the cumulative buffer s_buff, the contents until
+	'\n' are copied to line and the rest is stored again in s_buff. If no
+	newline is found, the whole content of s_buff is copied to line and s_buff
+	points to NULL.
+*/
 
 void	free_ptr(char *ptr)
 {

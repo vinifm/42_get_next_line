@@ -6,18 +6,18 @@
 /*   By: viferrei <viferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 18:18:45 by arbernar          #+#    #+#             */
-/*   Updated: 2021/10/05 17:43:40 by viferrei         ###   ########.fr       */
+/*   Updated: 2022/01/28 16:52:42 by viferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-size_t	ft_strlen(const char *s)
+size_t	ft_strlen(const char *str)
 {
 	size_t	i;
 
 	i = 0;
-	while (s[i] != '\0')
+	while (str[i] != '\0')
 		i++;
 	return (i);
 }
@@ -40,20 +40,20 @@ char	*ft_strdup(const char *s1)
 	return (s2);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strchr(const char *str, int c)
 {
 	int	i;
 
 	i = 0;
-	while (s[i] != '\0')
+	while (str[i] != '\0')
 	{
-		if (s[i] == (char)c)
-			return ((char *)&s[i]);
+		if (str[i] == (char)c)
+			return ((char *)&str[i]);
 		i++;
 	}
-	if (s[i] != (char)c)
+	if (str[i] != (char)c)
 		return (0);
-	return ((char *)&s[i]);
+	return ((char *)&str[i]);
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)
